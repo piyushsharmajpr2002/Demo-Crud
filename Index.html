@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="main.js"></script>
+
+  
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+    <header>
+        <!-- left box for search  -->
+        <div class="left">
+<input type="text" name="" id="myInput" placeholder="Search by First Name" onkeyup="SearchFun()">
+<div class="p-2 bd-highlight">
+<button type="button" class="btn btn-success btn-lg" onclick="showUserCreateBox()">Create Student</button>
+</div>
+        </div>
+
+        <!-- mid box for extra content -->
+        <div class="mid">
+      <main>
+           <section class="header">
+            <div class="items-controller">
+                <h5>Show</h5>
+                <select id="#itemperpage">
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="08">08</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+                <h5>Per Page</h5>
+            </div>
+
+           </section>
+      </main>
+
+
+        </div>
+       <!-- right for button   -->
+        <div class="right">
+       <button class="btn" onclick="export_data()">Excel</button>
+       <button class="btn" id="csvImport">CSV</button>
+       <button class="btn" id="click">PDF</button>
+  
+
+        </div>
+
+    </header>
+<table border="1"id="myTable">
+    <tbody>
+        <thead> 
+<tr>   
+<th>RollNo</th>  
+<th>FirstName</th> 
+<th>LastName</th>   
+<th>Address</th>  
+<th>BloodGroup</th>
+<th>Gender</th>    
+<th>ContactNo</th>   
+<th>Department</th>  
+<th>Actions </th>   
+</tr>
+</thead>
+</tbody>
+<tbody id="userData">  
+
+</tbody> 
+</table>
+</body>
+<!-- Pagination  -->
+<footer>
+    <div class="bottom-field">
+        <ul class="pagination">
+            <li class="prev"><a href="#"id="prev">&#139;</a></li>
+            <li class="list"><a href="#">01</a></li>
+            <li class="list"><a href="#">02</a></li>
+            <li class="list"><a href="#">03</a></li>
+            <li class="next"><a href="#"id="next">&#155;</a></li>
+            
+        </ul>
+    </div>
+</footer>
+
+<!--  
+<html>
+     <td> <a href="https://google.com" target="_blank"><input type="button"value="New Record"></a>
+    <input type="button"value="Edit Record">
+     <input type="button"value="Delete Record"></td> 
+    </html> 
+-->
+</html>
+<!-- Excel import  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"> </script>
+<script>
+function export_data(){
+ let data=document.getElementById('myTable');
+ var fp=XLSX.utils.table_to_book(data,{sheet:'Studentdata'});
+ XLSX.write(fp,{
+    bookType:'xlsx',
+    type:'base64'
+ });
+ XLSX.writeFile(fp,'Student.xlsx');
+
+}
+  </script>
+
+<!--  PDF import  -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+document.getElementById('click').onclick = function(){
+    var element=document.getElementById('myTable');
+    var opt={
+        margin:  1,
+        filename: 'StudentInformation.pdf',
+        image:    {type:'jpeg',quality:0.98},
+        html2canvas: {scale:2},
+        jsPDF:        {unit:'in',format:'letter',orientation:'landscape'}
+    };
+
+html2pdf(element,opt);
+
+};
+</script>
+
+<!--  Converting to CSV file  -->
+<script>
+   function htmlToCSV(html,filename){
+    var data=[];
+    var rows=document.querySelectorAll("table tr");
+
+    for(var i=0;i<rows.length;i++){
+        var row=[],cols=rows[i].querySelectorAll("td,th");
+    
+    for(var j=0;j<cols.length;j++){
+        row.push(cols[j].innerText)
+    }
+    data.push(row.join(","));
+    }
+ downloadCSVFile(data.join("\n"),filename);
+   }
+   function downloadCSVFile(csv,filename){
+    var csv_file,download_link;
+    csv_file=new Blob([csv],{type:"text/csv"});
+    download_link=document.createElement("a");
+    download_link.download=filename;
+    download_link.href=window.URL.createObjectURL(csv_file);
+    download_link.style.display="none";
+    document.body.appendChild(download_link);
+    download_link.click();
+   }
+   document.getElementById('csvImport').addEventListener("click",function(){
+    var html=document.querySelector("table").outerHTML;
+    htmlToCSV(html,"Students.csv");
+   })
+</script>
+  <!-- Student Create file  js file  -->
+  <script src="Show_userCreateStudent.js"></script>
+  <!-- Show Student Edit Box js file -->
+  <script src="Show_Student_Editbox.js"></script>
+
+  <!-- Crud js file  -->
+  <!-- Create  -->
+  <script src="usercreate.js"></script>
+  <!-- update -->
+<script src="userEdit.js"></script>
+  <!-- Delete -->
+  <script src="userdelete.js"></script>
+
+
+<!-- sweetalert    JS File-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
+<!-- bootstrap    JS File -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+  </script>

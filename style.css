@@ -1,0 +1,124 @@
+body{
+    margin: 0px;
+    padding:0px;
+
+}
+.left{
+    display: inline-block;
+    border:0px solid red;
+    position: absolute;
+    left: 34px;
+    top:20px;
+}
+.mid{
+    display: block;
+    width: 33%;
+    margin:20px auto;
+    border:0px solid yellow;
+}
+.right{
+    position: absolute;
+    right: 34px;
+    top:20px;
+    display: inline-block;
+    /* border:0px solid green; */
+}
+.btn{
+    margin:0px 4px;
+    /* background-color: white; */
+    /* color:black; */
+    /* border: none; */
+    padding: 4px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    /* border-radius: 3px; */
+}
+.btn:hover{
+    background-color:grey;
+    border-radius: 4px;
+}
+
+/*  Pagination CSS */
+main{
+    width: 70%;
+    height: 30%;
+    padding:10px;
+    margin:0px 0px;
+    background: white;
+    color:#666;
+
+}
+.header{
+    width: 90%;
+    height:50px;
+    margin: 0px auto;
+    /* display:flex; */
+    /* justify-content: space-between; */
+    align-items: center;
+}
+.items-controller{
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+select{
+    padding:2px;
+    margin:0 2px;
+    outline: none;
+    border:none;
+    cursor: pointer;
+    background: transparent;
+}
+table {
+    width: 100%;
+    margin:2px auto;
+    table-layout: auto;
+    color:#757575;
+    background-color: #ffff;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+}
+table tr th,td{
+padding:10px;
+border: 1px solid #ccc;
+}
+.bottom-field{
+    width: 100%;
+    padding:20px;
+    margin-top:20px;
+}
+.pagination{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+.pagination li{
+    list-style: none;
+    padding:2px;
+    margin:10px;
+    flex-shrink: 0;
+    text-align: center;
+    border-radius: 5px;
+    border :1px solid #999;
+    color:#999;
+}
+.pagination li.active{
+    background: #32d6aa;
+    color:white;
+    border-color: #32d6aa;
+}
+.pagination li a {
+    text-decoration: none;
+    color: inherit;
+    padding:3px 8px;
+    display: block;
+    font-size: 13px;
+}
+i.fa-edit{
+    color:lime;
+}
+i.fa-trash{
+    color:red;
+}
